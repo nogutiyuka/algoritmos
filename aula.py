@@ -1,40 +1,83 @@
+#estrutura de dados é como a gente consegue representar dados na memória do computador, ou seja, variaveis
+
+#registros = estruturas
+
+#Vetor é homogênio e Registro é heterogênio
+
+#Registros são os dados de uma linha de uma tabela de um banco de dados
+
+#Nomes de classes em Java e Python começa com letra maiúscula
+def sexo(num):
+    if(num == 1):
+        num = True
+    elif(num == 2):
+        num = False
+    else:
+        num = False
+    return num
+
+
+def mensagem(a):
+    if (a.sexo == True):
+        print("\n")
+        print(f"Nome: {a.nome}\nIdade: {a.idade} anos de idade\nE-email: {a.email}\nSexo: Masculino\nData de nascimento: {a.dataNascimento.dia}/{a.dataNascimento.mes}/{a.dataNascimento.ano}")
+    elif(a.sexo == False):
+        print("\n")
+        print(f"Nome: {a.nome}\nIdade: {a.idade} anos de idade\nE-email: {a.email}\nSexo: Feminino\nData de nascimento: {a.dataNascimento.dia}/{a.dataNascimento.mes}/{a.dataNascimento.ano}")
+
+
+class Data:
+    def __init__(self):
+        self.dia = 0
+        self.mes = 0
+        self.ano = 0
+
+class Aluno:
+    def __init__(self):
+        self.nome = ""
+        self.idade = 0
+        self.email = ""
+        self.sexo = False  # False = feminino     True = masculino
+        self.dataNascimento = Data()
+
+class Professor:
+    def __init__(self):
+        self.nome = ""
+        self.idade = 0
+        self.salario = 0.0
+        self.dataNascimento = Data()
+
+"""a = Aluno() #Aluno é um tipo de dado que criamos, um registro.
+a.nome = "Maria da Silva"
+a.idade = 22
+a.email = input("Informe seu e-mail: ")
+a.sexo = int(input("Digite 1 para Masculino e 2 para Feminino: "))
+a.sexo = sexo(a.sexo)
 """
-# PARTE 1
-Criar função chamada criarVetor que recebe um número inteiro por parâmetro representando o 
-tamanho de um vetor. A função deve criar o vetor, preencher com valores aleatórios entre 1 e 200 e retornar o vetor.
-No algoritmo principal, solicite o tamanho do vetor para o usuário e crie o vetor utilizando a função.
+b = Aluno()
 
-# PARTE 2
-Crie um procedimento chamado exibirVetor para exiba na tela o vetor recebido por parâmetro.
+b.nome = input("Informe seu nome: ")
+b.idade = int(input("Informe sua idade: "))
+b.email = input("Informe seu e-mail: ")
+b.sexo = int(input("Digite 1 para Masculino e 2 para Feminino: "))
+b.sexo = sexo(b.sexo)
+b.dataNascimento.dia = int(input("Informe o dia do seu nascimento: "))
+b.dataNascimento.mes = int(input("Informe o mês do seu nascimento: "))
+b.dataNascimento.ano = int(input("Informe o ano do seu nascimento: "))
 
-# PARTE 3
-Crie uma função chamada somaImpares que calcule e retorne a soma de todos os números ímpares de um vetor recebido por parâmetro.
-No algoritmo principal, apresente a soma na tela.
+mensagem(b)
 
-# PARTE 4
-Implemente um procedimento chamado busca que recebe por parâmetro um número informado pelo usuário. 
-O procedimento deve, usando a busca sequencial, exibir uma mensagem na tela dizendo se o número 
-está ou não presente em um vetor também recebido por parâmetro.
 
-# PARTE 5
-Implemente uma função chamada ordenar que recebe dois parâmetros: um vetor de números inteiros e o 
-nome de um algoritmo de ordenação (bolha, inserção ou seleção). Ordene e retorne o vetor recebido 
-de acordo com o parâmetro de ordenação. Obs: o código de ordenação está no Moodle (tópico Aulas)
-"""
-import funcoes
 
-num = int(input("Informe o tamanho do vetor: "))
-vetor = funcoes.criarVetor(num)
-funcoes.exibirVetor(vetor)
-soma = funcoes.somaImpares(vetor)
-print(soma)
+"""c = Data()
 
-buscar = int(input("Informe o número que você queira buscar: "))
+c.dia = int(input("Informe o dia: "))
+c.mes = int(input("Informe o mês: "))
+c.ano = int(input("Informe o ano: "))
 
-funcoes.busca(buscar, vetor)
+print(f"A data de hoje é: {c.dia}/{c.mes}/{c.ano}")"""
 
-metodo = input("Informe o nome do método de ordenação escolhido (bolha, inserção ou seleção).\nOBS: Escrever com todas as letras minúsculas: ").lower()
+#Classe: é um modelo para um conjunto de coisas, essas coisas são os objetos. Ou seja, uma classe é um modelo para esses objetos. Uma classes é um molde, um template, uma generalização para um grupo de coisas.
 
-funcoes.ordenar(vetor, metodo)
-
+#Objeto é uma instância de uma classe. Uma instância de uma classe nada mais é você ter uma variavel daquele tipo da classe. É a variável daquela classe.
 

@@ -1,83 +1,66 @@
-#estrutura de dados é como a gente consegue representar dados na memória do computador, ou seja, variaveis
+import mysql.connector
 
-#registros = estruturas
+#conectar no banco de dados
+banco = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="algoritmos"
+)
 
-#Vetor é homogênio e Registro é heterogênio
+if(banco):
+    print("Conectado com sucesso")
+else:
+    print("Erro na conexão")
 
-#Registros são os dados de uma linha de uma tabela de um banco de dados
-
-#Nomes de classes em Java e Python começa com letra maiúscula
-def sexo(num):
-    if(num == 1):
-        num = True
-    elif(num == 2):
-        num = False
-    else:
-        num = False
-    return num
-
-
-def mensagem(a):
-    if (a.sexo == True):
-        print("\n")
-        print(f"Nome: {a.nome}\nIdade: {a.idade} anos de idade\nE-email: {a.email}\nSexo: Masculino\nData de nascimento: {a.dataNascimento.dia}/{a.dataNascimento.mes}/{a.dataNascimento.ano}")
-    elif(a.sexo == False):
-        print("\n")
-        print(f"Nome: {a.nome}\nIdade: {a.idade} anos de idade\nE-email: {a.email}\nSexo: Feminino\nData de nascimento: {a.dataNascimento.dia}/{a.dataNascimento.mes}/{a.dataNascimento.ano}")
-
-
-class Data:
+class Disciplina:
     def __init__(self):
-        self.dia = 0
-        self.mes = 0
-        self.ano = 0
+        self.codigo = None
+        self.disc = ""
+        self.carga = 0
+        self.prof = ""
+        self.chr = 0.0
 
-class Aluno:
-    def __init__(self):
-        self.nome = ""
-        self.idade = 0
-        self.email = ""
-        self.sexo = False  # False = feminino     True = masculino
-        self.dataNascimento = Data()
+def salvar (disciplina):
+    cursor = banco.cursor()
+    sql = "INSERT INTO disciplinas(nome, ch, professor, chr) VALUES (%s, %s, %s, %s)"
 
-class Professor:
-    def __init__(self):
-        self.nome = ""
-        self.idade = 0
-        self.salario = 0.0
-        self.dataNascimento = Data()
+    valores = (disciplina.disc, disciplina.carga, disciplina.prof, disciplina.chr)
+    cursor.execute(sql, valores)
+    banco.commit()
 
-"""a = Aluno() #Aluno é um tipo de dado que criamos, um registro.
-a.nome = "Maria da Silva"
-a.idade = 22
-a.email = input("Informe seu e-mail: ")
-a.sexo = int(input("Digite 1 para Masculino e 2 para Feminino: "))
-a.sexo = sexo(a.sexo)
-"""
-b = Aluno()
-
-b.nome = input("Informe seu nome: ")
-b.idade = int(input("Informe sua idade: "))
-b.email = input("Informe seu e-mail: ")
-b.sexo = int(input("Digite 1 para Masculino e 2 para Feminino: "))
-b.sexo = sexo(b.sexo)
-b.dataNascimento.dia = int(input("Informe o dia do seu nascimento: "))
-b.dataNascimento.mes = int(input("Informe o mês do seu nascimento: "))
-b.dataNascimento.ano = int(input("Informe o ano do seu nascimento: "))
-
-mensagem(b)
+    arq = open("arquivo.txt", "a")
+    arq.write("{};{};{};{};{}\n".format(disciplina.codigo, disciplina.disc, disciplina.carga, disciplina.prof, disciplina.chr))
+    arq.close()
 
 
+def lerDados():
+    cursor = banco.cursor()
+    sql = "SELECT * FROM disciplinas;"
+    cursor.execute(sql)
+    resultados = cursor.fetchall()
+    print("Total de linhas retornadas: ", cursor.rowcount)
 
-"""c = Data()
+    for linha in resultados:
+        print(linha)
+        print("Código: ", linha[0])
+        print("Disciplina: ", linha[1])
+        print("Carga Horária: ", linha[2])
+        print("Professor: ", linha[3])
+        print("CHR: ", linha[4])
+    
+def usuario(a):
+    a.disc = input("Informe o nome da disciplina: ")
+    a.carga = int(input("Informe a carga horária da disciplina: "))
+    a.prof = input("Informe o nome do(a) professor(a): ")
+    a.chr = (a.carga * 50)/60
+    return a
 
-c.dia = int(input("Informe o dia: "))
-c.mes = int(input("Informe o mês: "))
-c.ano = int(input("Informe o ano: "))
+b = Disciplina()
+a = usuario(b)
+salvar(a)
 
-print(f"A data de hoje é: {c.dia}/{c.mes}/{c.ano}")"""
+c = usuario(b)
+salvar(c)
 
-#Classe: é um modelo para um conjunto de coisas, essas coisas são os objetos. Ou seja, uma classe é um modelo para esses objetos. Uma classes é um molde, um template, uma generalização para um grupo de coisas.
-
-#Objeto é uma instância de uma classe. Uma instância de uma classe nada mais é você ter uma variavel daquele tipo da classe. É a variável daquela classe.
-
+lerDados()

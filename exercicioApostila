@@ -1,0 +1,28 @@
+class Celular:
+	def __init__ (self):
+		self.marca = ""
+		self.modelo = ""
+		self.fabricacao = 0
+		self.preco = 0.0
+
+def pedir():
+	a = Celular()
+	a.marca = input("Marca: ")
+	a.modelo = input("Modelo: ")
+	a.fabricacao = int(input("Ano de fabricação: "))
+	a.preco = float(input("Preço: "))
+	return a 
+
+def lerDados(b):
+	print(f"Marca: {b.marca}")
+	print(f"Modelo: {b.modelo}")
+	print(f"Ano de fabricação: {b.fabricacao}")
+	print(f"Preço: {b.preco}")
+
+b = pedir()
+c = pedir()
+d = pedir()
+
+lerDados(b)
+lerDados(c)
+lerDados(d)

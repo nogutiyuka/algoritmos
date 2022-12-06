@@ -1,0 +1,35 @@
+class Profissao:
+    def __init__ (self):
+        self.descricao = ""
+        self.possuiRegistro = True
+
+class Cargo:
+    def __init__ (self):
+        self.descricao = ""
+        self.salarioAdicional = 0.0
+
+class Funcionario:
+    def __init__(self):
+        self.nome = ""
+        self.idade = 0
+        self.salario = 2000
+        self.profissao = Profissao()
+        self.cargo = Cargo()
+
+def exibirFuncionario(funcionario):
+    
+    if (funcionario.profissao.possuiRegistro == "True"):
+        print(f"{funcionario.nome} possui {funcionario.idade} anos de idade, é {funcionario.profissao.descricao} e, portanto possui registro profissional. Como ocupa o cargo de {funcionario.cargo.descricao} da empresa, então tem um salário adicional de {funcionario.cargo.salarioAdicional}. Ou seja, o salário do {funcionario.nome} será de {funcionario.salario}")
+    else:
+        print(f"{funcionario.nome} possui {funcionario.idade} anos de idade, é {funcionario.profissao.descricao} e, portanto não possui registro profissional. Como ocupa o cargo de {funcionario.cargo.descricao} da empresa, então tem um salário adicional de {funcionario.cargo.salarioAdicional}. Ou seja, o salário do {funcionario.nome} será de {funcionario.salario}")
+
+a = Funcionario()
+a.nome = input("Nome: ")
+a.idade = int(input("Idade: "))
+a.profissao.descricao = input("Descrição da profissão: ")
+a.profissao.possuiRegistro = bool(input("Possui registro: True para sim e False para não: "))
+a.cargo.descricao = input("Descrição do cargo: ")
+a.cargo.salarioAdicional = float(input("Salário adicional: "))
+a.salario = a.salario + a.cargo.salarioAdicional
+
+exibirFuncionario(a)

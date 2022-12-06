@@ -1,0 +1,45 @@
+import mysql.connector
+
+class Filmes:
+	def __init__(self):
+		self.codigo = None
+		self.titulo = ""
+		self.tempo = 0
+		self.lancamento = 0
+		self.preco = 0.0
+
+def lerDados():
+	a = Filmes()
+	a.titulo = input("Título: ")
+	a.tempo = int(input("Duração: "))
+	a.lancamento = int(input("Ano de lançamento: "))
+	a.preco = float(input("Preço: "))
+	return a
+
+banco = mysql.connector.connect(
+	host="localhost",
+	user="root",
+	password="",
+	database="avaliacao"
+)
+
+b = lerDados()
+
+cursor = banco.cursor()
+sql = "INSERT INTO filmes VALUES (%s, %s, %s, %s, %s)"
+valores = (None, b.titulo, b.tempo, b.lancamento, b.preco)
+cursor.execute(sql, valores)
+b.codigo = cursor.lastrowid
+banco.commit()
+print(f"Código do filme: {b.codigo}")
+
+sql2 = "SELECT * FROM filmes WHERE lancamento >= 2015"
+cursor.execute(sql2)
+
+resultado = cursor.fetchall()
+
+for linha in resultado:
+	print(linha[1])
+
+cursor.close()
+banco.close()
